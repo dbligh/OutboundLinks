@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 const OutboundLink = React.forwardRef(({ children, ...props }, ref) => (
   <a
     ref={ref}
+    { ...props }
     href={ props.href + (typeof localStorage !== `undefined` && localStorage.getItem("campaign") !== null && props.href.endsWith("/register") ? "?cpn=" + localStorage.getItem("campaign") : "" )}
     target={ props.target }
     onClick={e => {
