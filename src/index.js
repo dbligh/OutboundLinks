@@ -4,19 +4,9 @@ import PropTypes from "prop-types"
 const OutboundLink = React.forwardRef(({ children, ...props }, ref) => (
   <a
     ref={ref}
-    {...props}
+    href={ props.href + (typeof localStorage !== `undefined` && localStorage.getItem("campaign") !== null && props.href.endsWith("/register") ? "?cpn=" + localStorage.getItem("campaign") : "" )}
+    target={ props.target }
     onClick={e => {
-
-      if ( props.href.endsWith("/register") && typeof localStorage !== `undefined` ) {
-        // check if the user was onboarded via a campaign or not
-        let campaign = localStorage.getItem("campaign");
-        if ( campaign !== null ) {
-          campaign = "?cpn=" + campaign;
-        } else {
-          campaign = "";
-        }
-        props.href = props.href + campaign;
-      }
 
       if (typeof props.onClick === `function`) {
         props.onClick(e)
